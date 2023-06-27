@@ -1,11 +1,12 @@
 package routes
+
 //The routes package specifies how the elevator API will handle various api calls
 
 import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	
+	"github.com/slovoulo/Ezra-Assessment/task-a/api/handlers"
 )
 
 type Route struct {
@@ -25,17 +26,17 @@ var routes=[]Route{
         Name: "Call Elevator",
         Method: "POST",
         Path: "/v1/elevator",
-        HandlerFunc: recipegrpcclient.CreateRecipe,
+        HandlerFunc: handlers.CallElevator,
 
     },
 
-    {
-        Name: "Get elevator info",
-        Method: "GET",
-        Path: "/v1/elevator",
-        HandlerFunc: recipegrpcclient.GetSingleRecipe,
+    // {
+    //     Name: "Get elevator info",
+    //     Method: "GET",
+    //     Path: "/v1/elevator",
+    //     HandlerFunc: recipegrpcclient.GetSingleRecipe,
 
-    },
+    // },
     
 }
 
