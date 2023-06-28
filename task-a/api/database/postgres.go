@@ -18,17 +18,17 @@ var err error
 
 func ConnectDB() {
 	// Loading environment variables
-	dbPort := os.Getenv("DBPORT")
-	dbUser := os.Getenv("DBPORT")
-	dbName := os.Getenv("DBNAME")
-	password := os.Getenv("DBPASSWORD")
+	dbPort := os.Getenv("ELEVATORDBPORT")
+	dbUser := os.Getenv("ELEVATORDBUSER")
+	dbName := os.Getenv("ELEVATORDBNAME")
+	password := os.Getenv("ELEVATORDBPASSWORD")
 
 	
 
 
 	log.Println("attempting to connect to postgres")
 
-	dbURI := fmt.Sprintf("host=database user=%s dbname=%s sslmode=disable password=%s port=%s", dbUser, dbName, password,dbPort)  //Uncomment when using Docker 
+	dbURI := fmt.Sprintf("host=elevatordatabase user=%s dbname=%s sslmode=disable password=%s port=%s", dbUser, dbName, password,dbPort)  //Uncomment when using Docker 
 	
 	//Opening connection to database
 	Db, err = gorm.Open(postgres.Open(dbURI), &gorm.Config{Logger: logger.Default.LogMode(logger.Info)})

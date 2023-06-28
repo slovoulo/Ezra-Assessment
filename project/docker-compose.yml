@@ -1,0 +1,55 @@
+version: '3.8' #compose file version
+
+
+
+services:
+ 
+
+  elevatorapp:
+    build: 
+      context: ./../task-a
+      dockerfile: ./../task-a/elevator.dockerfile
+    image: "elevatorapp"
+    env_file:
+      - .env
+    restart: always
+    ports:
+      - "7070:7070"
+    #networks:
+      #- my-network
+    deploy:
+      mode: replicated
+      replicas: 1
+    depends_on:  #Ensures the elevator service will wait for databse service to start
+  # notice: these lines don't start with "-"
+      elevatordatabase:
+        condition: service_healthy
+  
+
+  elevatordatabase:
+    image: postgres:alpine
+    container_name: postgres_micro
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_USER=${ELEVATORDBUSER}
+      - POSTGRES_PASSWORD=${ELEVATORDBPASSWORD}
+      - POSTGRES_DB=${ELEVATORDBNAME}
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "sh -c 'pg_isready -U ${ELEVATORDBUSER} -d ${ELEVATORDBNAME}'"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 6s
+    #networks:
+      #- my-network
+    volumes:
+      - elevatordatabase_postgres:/var/lib/postgresql/data
+  
+
+
+volumes:
+  elevatordatabase_postgres:
+ 

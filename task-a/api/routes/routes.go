@@ -19,6 +19,13 @@ type Route struct {
 var routes=[]Route{
 
     //Home
+    {
+		Name:        "welcomeScreen",
+		Method:      "GET",
+		Path:     "/v1/",
+        HandlerFunc: handlers.HomeHandler,
+		
+	},
 	
 
 

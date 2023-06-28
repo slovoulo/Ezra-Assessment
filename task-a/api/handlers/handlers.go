@@ -20,12 +20,24 @@ type RequestedElevator struct {
 	ToFloor   int `json:"to_floor"`
 }
 
+func HomeHandler(w http.ResponseWriter, r *http.Request){
+	w.Write([]byte("Welcome to the Elevator app!"))
 
+}
 
 //This function counts down the time in seconds as the elevator covers each floor
 func DisplayCounter(floors int) {
-	time.Sleep(time.Duration(5) * time.Second*5)
-	log.Println("You have arrived")
+    
+	// time.Sleep(time.Duration(5) * time.Second*5)
+	// log.Println("You have arrived")
+
+    seconds:=floors*5
+    for i := seconds; i > 0; i-- {
+		log.Println(i)
+		time.Sleep(1 * time.Second)
+	}
+    log.Println("You have arrived")
+
 }
  //Determine whether elevator is going up or down
  func getElevatorDirection(currentf int, targetf int) string {
@@ -56,6 +68,7 @@ func CallElevator(w http.ResponseWriter, r *http.Request) {
     elevator.Direction=dir
     elevator.CalledAt=time.Now()
     log.Println("Calling elevator")
+    
 
     //Log the details of the call to db
     if result := database.Db.Create(&elevator); result.Error !=nil{
@@ -72,6 +85,7 @@ func CallElevator(w http.ResponseWriter, r *http.Request) {
     }
     DisplayCounter(floorsToTravel)
     w.WriteHeader(http.StatusOK)
+    w.Write([]byte("Calling elevator"))
 
 
 

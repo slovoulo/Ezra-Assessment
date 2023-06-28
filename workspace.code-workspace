@@ -5,6 +5,9 @@
 		},
 		{
 			"path": "task-b"
+		},
+		{
+			"path": "project"
 		}
 	]
 }
