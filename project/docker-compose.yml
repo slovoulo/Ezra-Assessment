@@ -24,11 +24,31 @@ services:
   # notice: these lines don't start with "-"
       elevatordatabase:
         condition: service_healthy
+
+  loansapp:
+    build: 
+      context: ./../task-b
+      dockerfile: ./../task-b/loans.dockerfile
+    image: "loansapp"
+    env_file:
+      - .env
+    restart: always
+    ports:
+      - "7071:7071"
+    #networks:
+      #- my-network
+    deploy:
+      mode: replicated
+      replicas: 1
+    depends_on:  #Ensures the loan service will wait for databse service to start
+  # notice: these lines don't start with "-"
+      loansdatabase:
+        condition: service_healthy
   
 
   elevatordatabase:
     image: postgres:alpine
-    container_name: postgres_micro
+    container_name: elevator_postgres_micro
     env_file:
       - .env
     environment:
@@ -43,13 +63,34 @@ services:
       timeout: 5s
       retries: 3
       start_period: 6s
-    #networks:
-      #- my-network
+  
+  loansdatabase:
+    image: postgres:alpine
+    container_name: loans_postgres_micro
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_USER=${LOANDBUSER}
+      - POSTGRES_PASSWORD=${LOANDBPASSWORD}
+      - POSTGRES_DB=${LOANDBNAME}
+    ports:
+      - "5433:5433"
+    healthcheck:
+      test: ["CMD-SHELL", "sh -c 'pg_isready -U ${LOANDBUSER} -d ${LOANDBNAME}'"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 6s
+    
+
+
     volumes:
       - elevatordatabase_postgres:/var/lib/postgresql/data
+      - loansdatabase_postgres:/var/lib/postgresql/data
   
 
 
 volumes:
   elevatordatabase_postgres:
+  loansdatabase_postgres:
  

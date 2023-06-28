@@ -1,4 +1,5 @@
 ELEVATOR_BINARY=elevatorapp 
+LOANS_BINARY=loansapp 
 
 
 
@@ -9,7 +10,7 @@ up:
 	@echo "Docker images started!"
 
 ## up_build: stops docker-compose (if running), builds all projects and starts docker compose
-up_build: build_elevator
+up_build: build_elevator build_loans
 	@echo "Stopping docker images (if running...)"
 	docker-compose down
 	@echo "Building (when required) and starting docker images..."
@@ -28,6 +29,12 @@ down:
 build_elevator:
 	@echo "Building elevatorapp binary..."
 	cd ../task-a && env GOOS=linux CGO_ENABLED=0 go build -o ${ELEVATOR_BINARY} ./cmd
+	@echo "Done!"
+
+## build_loans: builds the LOANS binary as a linux executable
+build_loans:
+	@echo "Building loansapp binary..."
+	cd ../task-b && env GOOS=linux CGO_ENABLED=0 go build -o ${LOANS_BINARY} ./cmd
 	@echo "Done!"
 
 
