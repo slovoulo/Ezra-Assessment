@@ -26,6 +26,13 @@ var routes=[]Route{
         HandlerFunc: loans_handlers.HomeHandler,
 		
 	},
+    {
+		Name:        "Create loan account",
+		Method:      "POST",
+		Path:     "/v1/account",
+        HandlerFunc: loans_handlers.CreateAccount,
+		
+	},
 	
 
 
