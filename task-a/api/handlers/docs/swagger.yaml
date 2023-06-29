@@ -1,0 +1,64 @@
+basePath: /
+consumes:
+- application/json
+definitions:
+  handlers.ElevatorRequest:
+    properties:
+      callerID:
+        type: string
+      callerName:
+        type: string
+      currentFloor:
+        type: integer
+      elevatorID:
+        type: integer
+      state:
+        type: string
+      targetFloor:
+        type: integer
+    type: object
+host: localhost:7070
+info:
+  contact: {}
+  description: Elevator API documentation.
+  title: Elevator app API
+  version: 1.0.0
+paths:
+  /v1/:
+    get:
+      description: Landing page
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+      summary: Landing page
+      tags:
+      - elevatorApp
+  /v1/elevator:
+    post:
+      consumes:
+      - application/json
+      description: 'Call elevator: For floor numbers (Current floor and target floor)
+        use numbers whose difference is small because this request waits 5 seconds
+        per floor'
+      parameters:
+      - description: Elevator struct
+        in: body
+        name: Elevator
+        required: true
+        schema:
+          $ref: '#/definitions/handlers.ElevatorRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+      summary: Call elevator
+      tags:
+      - elevator
+produces:
+- application/json
+swagger: "2.0"

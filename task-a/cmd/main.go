@@ -11,7 +11,7 @@ import (
 	"github.com/slovoulo/Ezra-Assessment/task-a/api/database"
 	"github.com/slovoulo/Ezra-Assessment/task-a/api/routes"
 
-	//	_ "github.com/slovoulo/recipe_apps_broker/recipe_grpc/recipe_grpc_client/docs"
+	_ "github.com/slovoulo/Ezra-Assessment/task-a/api/handlers/docs"
 	"github.com/swaggo/http-swagger"
 )
 
@@ -34,8 +34,6 @@ func main(){
 
 	muxRouter.PathPrefix("/swagger").Handler(httpSwagger.WrapHandler)
 	
-
-
 
 	//specify who's allowed to connect
 	c:=cors.New(cors.Options{ 

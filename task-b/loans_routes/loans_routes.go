@@ -33,6 +33,20 @@ var routes=[]Route{
         HandlerFunc: loans_handlers.CreateAccount,
 		
 	},
+    {
+		Name:        "Request loan",
+		Method:      "POST",
+		Path:     "/v1/loanrequest",
+        HandlerFunc: loans_handlers.LoanRequest,
+		
+	},
+    {
+		Name:        "Repay loan",
+		Method:      "POST",
+		Path:     "/v1/loanrepayment",
+        HandlerFunc: loans_handlers.LoanRepayment,
+		
+	},
 	
 
 

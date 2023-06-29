@@ -55,4 +55,36 @@ This project uses a variety of industry standard solutions to achieve the requir
 - Github Actions- Automated testsare done using Github actions
 - Docker-Virtualization, build and unit tests are done using Docker and Docker compose
 
+## Running the apps
+### Pre-requisites
+Ensure you have Docker installed preferably in a Linux environment
+### Getting started
+1. Clone the repository : https://github.com/slovoulo/Ezra-Assessment
+2. Navigate to the project directory i.e:$ cd project
+3. Build docker images with the commamnd:$ make up_build
+4. You can use Postman or swagger to test the endpoints
+### Swagger test
+For the Elevator app use : http://localhost:7070/swagger/index.html#/
+For the Loans app use: http://localhost:7071/swagger/index.html#/
+
+### Database schemas
+NOTE: At this point database instances are already running in Docker no need to set them up
+You can use any database monitoring tools to connect to the database and view records. 
+I recommend DBeaver
+To connect to the Elevator Database use the following credentials
+ - Host: localhost
+ - Port: 5432
+ - Username: ezra
+ - Database: ezra
+ - Password: ezraElevator
+
+To connect to the Loans Database use the following credentials
+ - Host: localhost
+ - Port: 5433
+ - Username: ezraloans
+ - Database: ezraloans
+ - Password: ezraLoansExtraStrongPassword
+
+
+
 

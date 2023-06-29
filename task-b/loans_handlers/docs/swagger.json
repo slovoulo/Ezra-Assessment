@@ -1,0 +1,159 @@
+{
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "swagger": "2.0",
+    "info": {
+        "description": "Loans API documentation.",
+        "title": "Loans App API",
+        "contact": {},
+        "version": "1.0.0"
+    },
+    "host": "localhost:7071",
+    "basePath": "/",
+    "paths": {
+        "/v1/": {
+            "get": {
+                "description": "Landing page",
+                "tags": [
+                    "Loans-App"
+                ],
+                "summary": "Loans Landing page",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/v1/account": {
+            "post": {
+                "description": "Create loan account\nMUST NOT start with a 0",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Loans-App"
+                ],
+                "summary": "Create loan account",
+                "parameters": [
+                    {
+                        "description": "Loan account ID (MSDIN)",
+                        "name": "AccountID",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/loans_handlers.SwaggerAccID"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/v1/loanrepayment": {
+            "post": {
+                "description": "Repay loan",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Loans-App"
+                ],
+                "summary": "Repay a loan",
+                "parameters": [
+                    {
+                        "description": "Loan account ID (MSDIN) and Amount",
+                        "name": "LoanDetails",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/loans_handlers.SwaggerLoanReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/v1/loanrequest": {
+            "post": {
+                "description": "Request loan\n\"Amountadded\" is the loan amount you are requesting",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Loans-App"
+                ],
+                "summary": "Request a loan",
+                "parameters": [
+                    {
+                        "description": "Loan account ID (MSDIN) and Amount",
+                        "name": "LoanDetails",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/loans_handlers.SwaggerLoanReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "loans_handlers.SwaggerAccID": {
+            "type": "object",
+            "properties": {
+                "accountID": {
+                    "type": "integer"
+                }
+            }
+        },
+        "loans_handlers.SwaggerLoanReq": {
+            "type": "object",
+            "properties": {
+                "accountID": {
+                    "type": "integer"
+                },
+                "amountAdded": {
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}

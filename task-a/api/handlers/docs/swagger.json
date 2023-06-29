@@ -1,0 +1,95 @@
+{
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "swagger": "2.0",
+    "info": {
+        "description": "Elevator API documentation.",
+        "title": "Elevator app API",
+        "contact": {},
+        "version": "1.0.0"
+    },
+    "host": "localhost:7070",
+    "basePath": "/",
+    "paths": {
+        "/v1/": {
+            "get": {
+                "description": "Landing page",
+                "tags": [
+                    "elevatorApp"
+                ],
+                "summary": "Landing page",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/v1/elevator": {
+            "post": {
+                "description": "Call elevator: For floor numbers (Current floor and target floor) use numbers whose difference is small because this request waits 5 seconds per floor",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "elevator"
+                ],
+                "summary": "Call elevator",
+                "parameters": [
+                    {
+                        "description": "Elevator struct",
+                        "name": "Elevator",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.ElevatorRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "handlers.ElevatorRequest": {
+            "type": "object",
+            "properties": {
+                "callerID": {
+                    "type": "string"
+                },
+                "callerName": {
+                    "type": "string"
+                },
+                "currentFloor": {
+                    "type": "integer"
+                },
+                "elevatorID": {
+                    "type": "integer"
+                },
+                "state": {
+                    "type": "string"
+                },
+                "targetFloor": {
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}

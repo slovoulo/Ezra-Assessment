@@ -1,3 +1,10 @@
+// @title Elevator app API
+// @version 1.0.0
+// @description Elevator API documentation.
+// @host localhost:7070
+// @Accept json
+// @Produce json
+// @BasePath /
 package handlers
 
 import (
@@ -20,6 +27,25 @@ type RequestedElevator struct {
 	ToFloor   int `json:"to_floor"`
 }
 
+type ElevatorRequest struct {
+	
+	ElevatorID   int `gorm:"not null"`
+	
+	CurrentFloor int    `gorm:"not null"`
+	TargetFloor  int    `gorm:"not null"`
+	State        string `gorm:"not null"`
+	
+	CallerName   string `gorm:"not null"`
+	CallerID     string `gorm:"not null"`
+}
+
+// Home godoc
+// @Summary Landing page
+// @Description Landing page
+// @Tags Elevator-App
+// @Success 200 
+// @Failure 400 
+// @Router /v1/ [get]
 func HomeHandler(w http.ResponseWriter, r *http.Request){
 	w.Write([]byte("Welcome to the Elevator app!"))
 
@@ -51,6 +77,17 @@ func DisplayCounter(floors int) {
 
  }
 
+///Annotation for calling elevator
+
+// @Summary Call elevator
+// @Description Call elevator: For floor numbers (Current floor and target floor) use numbers whose difference is small because this request waits 5 seconds per floor
+// @Tags Elevator-App
+// @Accept  json
+// @Produce  json
+// @Success 200 
+// @Failure 400 
+// @Param Elevator body ElevatorRequest true "Elevator struct"
+// @Router /v1/elevator [post]
 func CallElevator(w http.ResponseWriter, r *http.Request) {
     
     //Since information  of who/where the elevator is called from are required
@@ -92,55 +129,7 @@ func CallElevator(w http.ResponseWriter, r *http.Request) {
 
     
 
-    // vars := mux.Vars(r)
-    // currentFloor, targetFloor := vars["currentFloor"], vars["targetFloor"]
-
-    //Convert current and target floor to integers
-    // intcurrentfloor,err := strconv.Atoi(currentFloor)
-    // if err!=nil{
-	// 	log.Printf("Current floor value must be a string")
-	// 	w.WriteHeader(http.StatusBadRequest)
-	// 	w.Write([]byte("Current floor value must be a string"))
-	// 	return
-	// }
-    // inttargetFloor,err := strconv.Atoi(targetFloor)
-    // if err!=nil{
-	// 	log.Printf("Target floor value must be a string")
-	// 	w.WriteHeader(http.StatusBadRequest)
-	// 	w.Write([]byte("Target floor value must be a string"))
-	// 	return
-	// }
-
-    
-
-    // elevatorDir:=getElevatorDirection(intcurrentfloor,inttargetFloor)
-    // elevator := Elevator{
-    //     CurrentFloor: currentFloor,
-    //     TargetFloor: targetFloor,
-    //     State: "Calling",
-    //     Direction: elevatorDir,
-    // }
-
-    // log.Printf("Elevator called from floor %s to floor %s", currentFloor,targetFloor)
-
-   
-   
-
-	// // Create a new log entry
-	// log := Log{
-	// 	Timestamp: time.Now(),
-	// 	Event:     "elevator_called",
-	// 	Details:   getLogDetails(r),
-	// }
-	// db.Create(&log)
-
-	// // TODO: Implement elevator movement logic here
-
-	// w.WriteHeader(http.StatusOK)
+ 
 }
 
-func GetElevatorStatus(w http.ResponseWriter, r *http.Request) {
-	// TODO: Implement elevator status retrieval logic here
-	w.WriteHeader(http.StatusOK)
-}
 

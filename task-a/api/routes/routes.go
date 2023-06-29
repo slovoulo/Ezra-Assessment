@@ -37,13 +37,7 @@ var routes=[]Route{
 
     },
 
-    // {
-    //     Name: "Get elevator info",
-    //     Method: "GET",
-    //     Path: "/v1/elevator",
-    //     HandlerFunc: recipegrpcclient.GetSingleRecipe,
-
-    // },
+   
     
 }
 

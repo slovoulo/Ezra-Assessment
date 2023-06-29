@@ -11,7 +11,7 @@ import (
 	"github.com/slovoulo/Ezra-Assessment/task-b/loans_database"
 	"github.com/slovoulo/Ezra-Assessment/task-b/loans_routes"
 
-	//	_ "github.com/slovoulo/recipe_apps_broker/recipe_grpc/recipe_grpc_client/docs"
+	_ "github.com/slovoulo/Ezra-Assessment/task-b/loans_handlers/docs"
 	"github.com/swaggo/http-swagger"
 )
 

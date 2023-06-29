@@ -1,0 +1,107 @@
+basePath: /
+consumes:
+- application/json
+definitions:
+  loans_handlers.SwaggerAccID:
+    properties:
+      accountID:
+        type: integer
+    type: object
+  loans_handlers.SwaggerLoanReq:
+    properties:
+      accountID:
+        type: integer
+      amountAdded:
+        type: integer
+    type: object
+host: localhost:7071
+info:
+  contact: {}
+  description: Loans API documentation.
+  title: Loans App API
+  version: 1.0.0
+paths:
+  /v1/:
+    get:
+      description: Landing page
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+      summary: Loans Landing page
+      tags:
+      - Loans-App
+  /v1/account:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        Create loan account
+        MUST NOT start with a 0
+      parameters:
+      - description: Loan account ID (MSDIN)
+        in: body
+        name: AccountID
+        required: true
+        schema:
+          $ref: '#/definitions/loans_handlers.SwaggerAccID'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+      summary: Create loan account
+      tags:
+      - Loans-App
+  /v1/loanrepayment:
+    post:
+      consumes:
+      - application/json
+      description: Repay loan
+      parameters:
+      - description: Loan account ID (MSDIN) and Amount
+        in: body
+        name: LoanDetails
+        required: true
+        schema:
+          $ref: '#/definitions/loans_handlers.SwaggerLoanReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+      summary: Repay a loan
+      tags:
+      - Loans-App
+  /v1/loanrequest:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        Request loan
+        "Amountadded" is the loan amount you are requesting
+      parameters:
+      - description: Loan account ID (MSDIN) and Amount
+        in: body
+        name: LoanDetails
+        required: true
+        schema:
+          $ref: '#/definitions/loans_handlers.SwaggerLoanReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+      summary: Request a loan
+      tags:
+      - Loans-App
+produces:
+- application/json
+swagger: "2.0"
